@@ -1,0 +1,53 @@
+@startuml "Mailing-module-model"
+
+skinparam stereotypeCBorderColor Black
+skinparam stereotypeCBackgroundColor White
+skinparam stereotypeEBackgroundColor White
+skinparam handwritten true
+skinparam class {
+'	Полностью готово
+	BackgroundColor<<Ready>> PaleGreen
+'	Не готовы взаимосвязи экранов
+	BackgroundColor<<NotConnected>> Yellow
+'	Не готовы экраны
+	BackgroundColor<<EntityReady>> Orange
+'	Не готовы связи на уровне полей и БД
+	BackgroundColor<<NotAllFields>> Pink
+'	Не до конца ясно, как/кем формируются данные в сущности
+	BackgroundColor<<Question>> LightBlue
+'	Полностью готово
+	BackgroundColor<<Remove>> Red
+
+'   Нет цвета: Не создано
+    BackgroundColor<<Reference>> #c9ffc9
+}
+
+class Message {
+    Сообщение
+    --
+    sender          [0..1]  User
+    recipient       [1]     User
+    subject         [1]     String
+    meta            [1]     
+    contents        [1]
+}
+
+class MetaInfo {
+    Метаданные
+    --
+    sent            [1]     boolean
+    isRead          [1]     boolean
+    delBySender     [1]     boolean
+    delByRecipient  [1]     boolean
+}
+
+class Contents {
+    Содержание
+    --
+    text            [1]     String
+}
+
+Message "1"--"1" MetaInfo
+Message "1"--"1" Contents
+
+@enduml
