@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <views xmlns="http://schemas.haulmont.com/cuba/view.xsd">
 
+    <view entity="mailing_Message" name="message-view" extends="_local">
+        <property name="sender" view="_local"/>
+        <property name="recipient" view="_local"/>
+        <property name="meta" view="_local"/>
+        <property name="contents" view="_local"/>
+    </view>
 </views>

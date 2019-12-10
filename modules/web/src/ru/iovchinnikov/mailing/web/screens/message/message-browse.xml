@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://browseCaption"
+        focusComponent="messagesTable"
+        messagesPack="ru.iovchinnikov.mailing.web.screens.message">
+    <data readOnly="true">
+        <collection id="messagesDc"
+                    class="ru.iovchinnikov.mailing.entity.Message"
+                    view="message-view">
+            <loader id="messagesDl">
+                <query>
+                    <![CDATA[select e from mailing_Message e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="messagesTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="messagesTable"
+                dataLoader="messagesDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="messagesTable"
+                    width="100%"
+                    dataContainer="messagesDc"
+                    multiselect="true">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="sender"/>
+                <column id="recipient"/>
+                <column id="subject"/>
+                <column id="meta"/>
+                <column id="contents"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="messagesTable.create"/>
+                <button id="editBtn" action="messagesTable.edit"/>
+                <button id="removeBtn" action="messagesTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>
