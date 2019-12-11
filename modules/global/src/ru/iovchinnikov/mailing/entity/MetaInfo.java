@@ -22,8 +22,11 @@ public class MetaInfo extends StandardEntity {
     @Column(name = "DELETED_BY_SENDER", nullable = false)
     protected Boolean deletedBySender = false;
 
-    @Column(name = "DELETED_BY_RECIPIENT") protected Boolean deletedByRecipient;
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "meta", optional = false) protected Message message;
+    @Column(name = "DELETED_BY_RECIPIENT")
+    protected Boolean deletedByRecipient;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "meta")
+    protected Message message;
 
     public Message getMessage() {
         return message;

@@ -8,38 +8,41 @@
                   class="ru.iovchinnikov.mailing.entity.Message"
                   view="message-view">
             <loader/>
+            <instance id="contentDc" property="contents" />
+            <instance id="metaDc" property="meta" />
         </instance>
+        <collection id="userListDs"
+                    class="com.haulmont.cuba.security.entity.User"
+                    view="_local">
+            <loader id="userListDl">
+                <query>
+                <!--    we could never send messages to ourselves, anonymous or admin   -->
+                    <![CDATA[select e from sec$User e where e.login <> :currentUser
+                                                            and e.login <> 'anonymous'
+                                                            and e.login <> 'admin']]>
+                </query>
+            </loader>
+        </collection>
     </data>
     <dialogMode height="600"
                 width="800"/>
     <layout expand="editActions" spacing="true">
         <form id="form" dataContainer="messageDc">
-            <column width="250px">
-                <pickerField id="senderField" property="sender">
+            <column width="100%">
+                <pickerField id="senderField" property="sender" editable="false">
                     <actions>
                         <action id="lookup" type="picker_lookup"/>
                         <action id="clear" type="picker_clear"/>
                     </actions>
                 </pickerField>
-                <pickerField id="recipientField" property="recipient">
+                <lookupPickerField id="recipientField" property="recipient" optionsContainer="userListDs">
                     <actions>
                         <action id="lookup" type="picker_lookup"/>
                         <action id="clear" type="picker_clear"/>
                     </actions>
-                </pickerField>
+                </lookupPickerField>
                 <textField id="subjectField" property="subject"/>
-                <pickerField id="metaField" property="meta">
-                    <actions>
-                        <action id="lookup" type="picker_lookup"/>
-                        <action id="clear" type="picker_clear"/>
-                    </actions>
-                </pickerField>
-                <pickerField id="contentsField" property="contents">
-                    <actions>
-                        <action id="lookup" type="picker_lookup"/>
-                        <action id="clear" type="picker_clear"/>
-                    </actions>
-                </pickerField>
+                <richTextArea id="rtsContents" dataContainer="contentDc" property="text"/>
             </column>
         </form>
         <hbox id="editActions" spacing="true">
