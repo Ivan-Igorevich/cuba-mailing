@@ -42,7 +42,7 @@
                     </actions>
                 </lookupPickerField>
                 <textField id="subjectField" property="subject"/>
-                <richTextArea id="rtsContents" dataContainer="contentDc" property="text"/>
+                <richTextArea id="rtaContents" dataContainer="contentDc" property="text"/>
             </column>
         </form>
         <hbox id="editActions" spacing="true">
