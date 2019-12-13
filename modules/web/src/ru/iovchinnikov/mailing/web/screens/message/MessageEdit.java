@@ -1,13 +1,14 @@
 package ru.iovchinnikov.mailing.web.screens.message;
 
 import com.haulmont.cuba.core.global.DataManager;
+import com.haulmont.cuba.core.global.Metadata;
 import com.haulmont.cuba.core.global.UserSessionSource;
 import com.haulmont.cuba.gui.model.CollectionLoader;
 import com.haulmont.cuba.gui.model.DataContext;
-import com.haulmont.cuba.gui.model.InstanceContainer;
 import com.haulmont.cuba.gui.model.InstancePropertyContainer;
 import com.haulmont.cuba.gui.screen.*;
 import com.haulmont.cuba.security.entity.User;
+import ru.iovchinnikov.mailing.entity.Contents;
 import ru.iovchinnikov.mailing.entity.Message;
 import ru.iovchinnikov.mailing.entity.MetaInfo;
 
@@ -20,9 +21,8 @@ import javax.inject.Inject;
 public class MessageEdit extends StandardEditor<Message> {
     @Inject private CollectionLoader<User> userListDl;
     @Inject private UserSessionSource userSessionSource;
-    @Inject private InstancePropertyContainer<MetaInfo> metaDc;
-    @Inject private InstanceContainer<Message> messageDc;
-    @Inject private DataManager dataManager;
+    @Inject private Metadata metadata;
+    @Inject private DataContext dataContext;
 
     @Subscribe
     protected void onBeforeShow(BeforeShowEvent event) {
@@ -33,16 +33,23 @@ public class MessageEdit extends StandardEditor<Message> {
     }
 
     @Subscribe
-    private void onBeforeCommitChanges(BeforeCommitChangesEvent event) {
-        metaDc.setItem(dataManager.create(MetaInfo.class));
-        metaDc.getItem().setDeletedByRecipient(false);
-        metaDc.getItem().setDeletedBySender(false);
-        metaDc.getItem().setIsRead(false);
-        metaDc.getItem().setSent(false);
-//        metaDc.getItem().setMessage(getEditedEntity());
-
-        getEditedEntity().setMeta(metaDc.getItem());
-        dataManager.commit(metaDc.getItem());
+    private void onInitEntity(InitEntityEvent<Message> event) {
+        Message msg = event.getEntity();
+        msg.setContents(createContent());
+        msg.setMeta(createMeta());
     }
+
+    private Contents createContent() {
+        Contents contents = metadata.create(Contents.class);
+        return dataContext.merge(contents);
+    }
+
+    private MetaInfo createMeta() {
+        MetaInfo meta = metadata.create(MetaInfo.class);
+        meta.initNewItem();
+        return dataContext.merge(meta);
+    }
+
+
 
 }

@@ -16,10 +16,11 @@
                     view="_local">
             <loader id="userListDl">
                 <query>
-                <!--    we could never send messages to ourselves, anonymous or admin   -->
+                <!--    we could never send messages to ourselves, anonymous, system or admin   -->
                     <![CDATA[select e from sec$User e where e.login <> :currentUser
                                                             and e.login <> 'anonymous'
-                                                            and e.login <> 'admin']]>
+                                                            and e.login <> 'admin'
+                                                            and e.login <> 'system']]>
                 </query>
             </loader>
         </collection>
@@ -42,7 +43,7 @@
                     </actions>
                 </lookupPickerField>
                 <textField id="subjectField" property="subject"/>
-                <richTextArea id="rtaContents" dataContainer="contentDc" property="text"/>
+                <richTextArea id="rtaContents" property="contents.text"/>
             </column>
         </form>
         <hbox id="editActions" spacing="true">
