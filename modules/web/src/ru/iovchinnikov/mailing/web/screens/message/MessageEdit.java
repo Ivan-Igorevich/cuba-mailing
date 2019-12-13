@@ -1,11 +1,9 @@
 package ru.iovchinnikov.mailing.web.screens.message;
 
-import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.Metadata;
 import com.haulmont.cuba.core.global.UserSessionSource;
 import com.haulmont.cuba.gui.model.CollectionLoader;
 import com.haulmont.cuba.gui.model.DataContext;
-import com.haulmont.cuba.gui.model.InstancePropertyContainer;
 import com.haulmont.cuba.gui.screen.*;
 import com.haulmont.cuba.security.entity.User;
 import ru.iovchinnikov.mailing.entity.Contents;
@@ -48,6 +46,11 @@ public class MessageEdit extends StandardEditor<Message> {
         MetaInfo meta = metadata.create(MetaInfo.class);
         meta.initNewItem();
         return dataContext.merge(meta);
+    }
+
+    @Subscribe(target = Target.DATA_CONTEXT)
+    private void onPreCommit(DataContext.PreCommitEvent event) {
+        getEditedEntity().getMeta().setSent(true);                              // as we commit the message - it is sent
     }
 
 
