@@ -14,7 +14,10 @@ public class Contents extends StandardEntity {
     @Lob
     @Column(name = "TEXT", nullable = false)
     protected String text;
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "contents", optional = false) protected Message message;
+
+    @NotNull
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "contents", optional = false)
+    protected Message message;
 
     public Message getMessage() {
         return message;

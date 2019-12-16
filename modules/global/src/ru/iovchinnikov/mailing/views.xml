@@ -7,4 +7,10 @@
         <property name="meta" view="_local"/>
         <property name="contents" view="_local"/>
     </view>
+    <view entity="mailing_MetaInfo" name="metaInfo-view" extends="_local">
+        <property name="message" view="_local"/>
+    </view>
+    <view entity="mailing_Contents" name="contents-view" extends="_local">
+        <property name="message" view="_local"/>
+    </view>
 </views>
