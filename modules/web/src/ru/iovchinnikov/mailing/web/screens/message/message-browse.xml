@@ -45,6 +45,7 @@
                 <button id="createBtn" action="messagesTable.create"/>
                 <button id="editBtn" action="messagesTable.edit"/>
                 <button id="removeBtn" action="messagesTable.remove"/>
+                <button id="testBtn" invoke="checkService" caption="msg://checkService"/>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">

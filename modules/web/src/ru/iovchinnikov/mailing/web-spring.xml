@@ -7,5 +7,13 @@
     <context:component-scan base-package="ru.iovchinnikov.mailing"/>
     
     <gui:screens base-packages="ru.iovchinnikov.mailing.web"/>
+    <bean id="mailing_proxyCreator" class="com.haulmont.cuba.web.sys.remoting.WebRemoteProxyBeanCreator">
+        <property name="serverSelector" ref="cuba_ServerSelector"/>
+        <property name="remoteServices">
+            <map>
+                <entry key="mailing_MessageService" value="ru.iovchinnikov.mailing.service.MessageService"/>
+            </map>
+        </property>
+    </bean>
 
 </beans>
