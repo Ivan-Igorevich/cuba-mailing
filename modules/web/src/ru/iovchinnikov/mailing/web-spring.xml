@@ -12,6 +12,7 @@
         <property name="remoteServices">
             <map>
                 <entry key="mailing_MessageService" value="ru.iovchinnikov.mailing.service.MessageService"/>
+                <entry key="mailing_FilterService" value="ru.iovchinnikov.mailing.service.FilterService"/>
             </map>
         </property>
     </bean>

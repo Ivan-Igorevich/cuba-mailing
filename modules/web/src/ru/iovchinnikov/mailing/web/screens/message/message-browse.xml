@@ -14,14 +14,17 @@
             </loader>
         </collection>
     </data>
-    <dialogMode height="600"
-                width="800"/>
+    <dialogMode height="800"
+                width="1000"
+                forceDialog="true"/>
     <layout expand="messagesTable"
             spacing="true">
         <filter id="filter"
                 applyTo="messagesTable"
                 dataLoader="messagesDl">
-            <properties include=".*"/>
+            <properties include=".*"
+                        excludeProperties="id, version, createTs, createdBy, updateTs, updatedBy, deleteTs, deletedBy, recipient, sender, meta, contents.message"
+                        excludeRecursively="true"/>
         </filter>
         <groupTable id="messagesTable"
                     width="100%"
@@ -46,6 +49,9 @@
                 <button id="editBtn" action="messagesTable.edit"/>
                 <button id="removeBtn" action="messagesTable.remove"/>
                 <button id="testBtn" invoke="checkService" caption="msg://checkService"/>
+                <button id="ShowAllBtn" invoke="showAll" caption="msg://showAll"/>
+                <button id="ShowReceivedBtn" invoke="showInbox" caption="msg://inbox"/>
+                <button id="ShowSentBtn" invoke="showSent" caption="msg://sent"/>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">
