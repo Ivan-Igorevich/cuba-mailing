@@ -2,6 +2,7 @@ package ru.iovchinnikov.mailing.web.screens.message;
 
 import com.haulmont.cuba.core.global.Metadata;
 import com.haulmont.cuba.core.global.UserSessionSource;
+import com.haulmont.cuba.gui.components.VBoxLayout;
 import com.haulmont.cuba.gui.model.CollectionLoader;
 import com.haulmont.cuba.gui.model.DataContext;
 import com.haulmont.cuba.gui.screen.*;
@@ -21,6 +22,7 @@ public class MessageEdit extends StandardEditor<Message> {
     @Inject private UserSessionSource userSessionSource;
     @Inject private Metadata metadata;
     @Inject private DataContext dataContext;
+    @Inject private VBoxLayout mainVBox;
 
     @Subscribe
     protected void onBeforeShow(BeforeShowEvent event) {
@@ -36,6 +38,7 @@ public class MessageEdit extends StandardEditor<Message> {
         Message msg = event.getEntity();
         msg.setContents(createContent());
         msg.setMeta(createMeta());
+        mainVBox.setEnabled(true);
     }
 
     private Contents createContent() {
