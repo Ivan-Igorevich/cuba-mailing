@@ -2,6 +2,7 @@ package ru.iovchinnikov.mailing.service;
 
 import com.haulmont.cuba.core.global.CommitContext;
 import com.haulmont.cuba.core.global.DataManager;
+import com.haulmont.cuba.core.global.LoadContext;
 import com.haulmont.cuba.security.entity.User;
 import org.springframework.stereotype.Service;
 import ru.iovchinnikov.mailing.entity.Contents;
@@ -14,6 +15,14 @@ import javax.inject.Inject;
 public class MessageServiceBean implements MessageService {
 
     @Inject private DataManager dataManager;
+
+    @Override
+    public long getUnreadMsgCount(User user) {
+        LoadContext<Message> ctx = LoadContext.create(Message.class);
+        ctx.setQuery(LoadContext.createQuery("select e from mailing_Message e where e.recipient.id = :current and e.meta.isRead = false")
+                .setParameter("current", user.getId()));
+        return dataManager.getCount(ctx);
+    }
 
     @Override
     public void send(User sender, User recipient, String subject, String text) {
