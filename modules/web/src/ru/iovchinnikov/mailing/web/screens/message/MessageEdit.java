@@ -32,6 +32,7 @@ public class MessageEdit extends StandardEditor<Message> {
 
     @Subscribe
     private void onInitEntity(InitEntityEvent<Message> event) {
+        // as we instantiate a new entity - we create new meta and new contents and put it to the same data context
         Message msg = event.getEntity();
         msg.setContents(createContent());
         msg.setMeta(createMeta());

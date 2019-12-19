@@ -5,12 +5,15 @@
         <property name="sender" view="_local"/>
         <property name="recipient" view="_local"/>
         <property name="meta" view="_local"/>
-        <property name="contents" view="_local"/>
+        <property name="contents" view="_local">
+            <property name="attachments" view="browse"/>
+        </property>
     </view>
     <view entity="mailing_MetaInfo" name="metaInfo-view" extends="_local">
         <property name="message" view="_local"/>
     </view>
     <view entity="mailing_Contents" name="contents-view" extends="_local">
         <property name="message" view="_local"/>
+        <property name="attachments" view="browse"/>
     </view>
 </views>

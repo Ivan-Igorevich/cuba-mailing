@@ -36,10 +36,10 @@
                 <action id="remove" type="remove"/>
             </actions>
             <columns>
+                <column id="createTs"/>
                 <column id="sender"/>
                 <column id="recipient"/>
                 <column id="subject"/>
-                <column id="meta"/>
                 <column id="contents"/>
             </columns>
             <rowsCount/>

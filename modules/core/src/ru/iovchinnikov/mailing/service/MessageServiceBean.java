@@ -17,6 +17,7 @@ public class MessageServiceBean implements MessageService {
 
     @Override
     public void send(User sender, User recipient, String subject, String text) {
+        // To send a message we need to create it and put it to the same context with related entities
         CommitContext commitContext = new CommitContext();
         MetaInfo meta = dataManager.create(MetaInfo.class);
         Contents contents = dataManager.create(Contents.class);
@@ -35,6 +36,7 @@ public class MessageServiceBean implements MessageService {
         meta.setSent(true);
         meta.setMessage(msg);
 
+        // As we created entities and filled them with data, we put them to context and commit in one transaction
         commitContext.addInstanceToCommit(msg, "message-view");
         commitContext.addInstanceToCommit(meta, "metaInfo-view");
         commitContext.addInstanceToCommit(contents, "contents-view");

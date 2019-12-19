@@ -8,7 +8,9 @@
                   class="ru.iovchinnikov.mailing.entity.Message"
                   view="message-view">
             <loader/>
-            <instance id="contentDc" property="contents" />
+            <instance id="contentDc" property="contents" >
+                <collection id="attachmentsDc" property="attachments"/>
+            </instance>
             <instance id="metaDc" property="meta" />
         </instance>
         <collection id="userListDs"
@@ -25,27 +27,48 @@
             </loader>
         </collection>
     </data>
-    <dialogMode height="600"
+    <dialogMode height="800"
                 width="800"/>
-    <layout expand="editActions" spacing="true">
-        <form id="form" dataContainer="messageDc">
-            <column width="100%">
-                <pickerField id="senderField" property="sender" editable="false">
+    <layout expand="mainVBox" spacing="true">
+        <vbox id="mainVBox" expand="attachments">
+            <form id="form" dataContainer="messageDc" width="100%">
+                <column width="100%">
+                    <pickerField id="senderField" property="sender" editable="false">
+                        <actions>
+                            <action id="lookup" type="picker_lookup"/>
+                            <action id="clear" type="picker_clear"/>
+                        </actions>
+                    </pickerField>
+                    <lookupPickerField id="recipientField" property="recipient" optionsContainer="userListDs">
+                        <actions>
+                            <action id="lookup" type="picker_lookup"/>
+                            <action id="clear" type="picker_clear"/>
+                        </actions>
+                    </lookupPickerField>
+                    <textField id="subjectField" property="subject"/>
+                    <richTextArea id="rtaContents" property="contents.text"/>
+                </column>
+            </form>
+            <groupBox id="attachments" caption="msg://attachments">
+                <table id="tblAttachments" dataContainer="attachmentsDc" width="100%" height="100%">
                     <actions>
-                        <action id="lookup" type="picker_lookup"/>
-                        <action id="clear" type="picker_clear"/>
+                        <action id="addFile" type="create" caption="msg://fileAdd"/>
+                        <action id="editFile" type="edit"/>
+                        <action id="removeFile" type="remove"/>
                     </actions>
-                </pickerField>
-                <lookupPickerField id="recipientField" property="recipient" optionsContainer="userListDs">
-                    <actions>
-                        <action id="lookup" type="picker_lookup"/>
-                        <action id="clear" type="picker_clear"/>
-                    </actions>
-                </lookupPickerField>
-                <textField id="subjectField" property="subject"/>
-                <richTextArea id="rtaContents" property="contents.text"/>
-            </column>
-        </form>
+                    <columns>
+                        <column id="name" expandRatio="4"/>
+                        <column id="size" expandRatio="1"/>
+                    </columns>
+                    <buttonsPanel id="btnPanFiles">
+                        <button id="btnAddFile" action="tblAttachments.addFile"/>
+                        <button id="btnEdFile" action="tblAttachments.editFile"/>
+                        <button id="btnRmFile" action="tblAttachments.removeFile"/>
+                    </buttonsPanel>
+                    <rows/>
+                </table>
+            </groupBox>
+        </vbox>
         <hbox id="editActions" spacing="true">
             <button action="windowCommitAndClose"/>
             <button action="windowClose"/>
