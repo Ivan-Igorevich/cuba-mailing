@@ -1,10 +1,12 @@
 package ru.iovchinnikov.mailing.entity;
 
+import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+@NamePattern("%s|text")
 @Table(name = "MAILING_CONTENTS")
 @Entity(name = "mailing_Contents")
 public class Contents extends StandardEntity {
