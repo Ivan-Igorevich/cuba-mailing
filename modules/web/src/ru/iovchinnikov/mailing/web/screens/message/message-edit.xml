@@ -22,7 +22,7 @@
                     <![CDATA[select e from sec$User e where e.login <> :currentUser
                                                             and e.login <> 'anonymous'
                                                             and e.login <> 'admin'
-                                                            and e.login <> 'system']]>
+                                                            and e.login <> 'System']]>
                 </query>
             </loader>
         </collection>
@@ -30,7 +30,8 @@
     <dialogMode height="800"
                 width="800"/>
     <layout expand="mainVBox" spacing="true">
-        <vbox id="mainVBox" expand="attachments">
+        <!--    we could never edit anything on a message unless it's a new one    -->
+        <vbox id="mainVBox" expand="attachments" enable="false">
             <form id="form" dataContainer="messageDc" width="100%">
                 <column width="100%">
                     <pickerField id="senderField" property="sender" editable="false">

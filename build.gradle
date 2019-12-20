@@ -16,7 +16,7 @@ buildscript {
     }
 }
 
-def modulePrefix = 'app'
+def modulePrefix = 'mailing'
 
 def globalModule = project(":${modulePrefix}-global")
 def coreModule = project(":${modulePrefix}-core")
@@ -34,6 +34,11 @@ cuba {
     }
     tomcat {
         dir = "$project.rootDir/deploy/tomcat"
+    }
+    uploadRepository {
+        url = 'http://sv-noda.risde.ru:8010/nexus/content/repositories/snapshots/'
+        user = 'admin'
+        password = 'admin123'
     }
 }
 
@@ -73,6 +78,13 @@ configure(globalModule) {
     entitiesEnhancing {
         main {
             enabled = true
+        }
+    }
+
+    jar {
+        manifest {
+            attributes('App-Component-Id': cuba.artifact.group)
+            attributes('App-Component-Version': cuba.artifact.version + (cuba.artifact.isSnapshot ? '-SNAPSHOT' : ''))
         }
     }
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<app-component xmlns="http://schemas.haulmont.com/cuba/app-component.xsd"
+               dependsOn="com.haulmont.cuba">
+
+    <module name="global" blocks="*">
+        <artifact name="mailing-global" appJar="true"/>
+
+        <property name="cuba.persistenceConfig" value="+ru/iovchinnikov/mailing/persistence.xml"/>
+        <property name="cuba.metadataConfig" value="+ru/iovchinnikov/mailing/metadata.xml"/>
+        <property name="cuba.viewsConfig" value="+ru/iovchinnikov/mailing/views.xml"/>
+    </module>
+    <module name="core" dependsOn="global" blocks="core">
+        <artifact name="mailing-core" appJar="true"/>
+        <artifact name="mailing-core" classifier="db" ext="zip" configuration="dbscripts"/>
+
+        <property name="cuba.springContextConfig" value="+ru/iovchinnikov/mailing/spring.xml"/>
+        <property name="cuba.mainMessagePack" value="+ru.iovchinnikov.mailing.core"/>
+    </module>
+    <module name="web" dependsOn="global" blocks="web">
+        <artifact name="mailing-web" appJar="true"/>
+        <artifact name="mailing-web" classifier="web" ext="zip" configuration="webcontent"/>
+
+        <property name="cuba.springContextConfig" value="+ru/iovchinnikov/mailing/web-spring.xml"/>
+        <property name="cuba.dispatcherSpringContextConfig" value="+ru/iovchinnikov/mailing/web-dispatcher-spring.xml"/>
+        <property name="cuba.windowConfig" value="+ru/iovchinnikov/mailing/web-screens.xml"/>
+        <property name="cuba.menuConfig" value="+ru/iovchinnikov/mailing/web-menu.xml"/>
+        <property name="cuba.permissionConfig" value="+ru/iovchinnikov/mailing/web-permissions.xml"/>
+        <property name="cuba.mainMessagePack" value="+ru.iovchinnikov.mailing.web"/>
+    </module>
+</app-component>
