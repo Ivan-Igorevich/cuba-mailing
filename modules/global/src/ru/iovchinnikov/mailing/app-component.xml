@@ -20,11 +20,6 @@
         <artifact name="mailing-web" appJar="true"/>
         <artifact name="mailing-web" classifier="web" ext="zip" configuration="webcontent"/>
 
-        <property name="cuba.springContextConfig" value="+ru/iovchinnikov/mailing/web-spring.xml"/>
-        <property name="cuba.dispatcherSpringContextConfig" value="+ru/iovchinnikov/mailing/web-dispatcher-spring.xml"/>
-        <property name="cuba.windowConfig" value="+ru/iovchinnikov/mailing/web-screens.xml"/>
-        <property name="cuba.menuConfig" value="+ru/iovchinnikov/mailing/web-menu.xml"/>
-        <property name="cuba.permissionConfig" value="+ru/iovchinnikov/mailing/web-permissions.xml"/>
-        <property name="cuba.mainMessagePack" value="+ru.iovchinnikov.mailing.web"/>
+
     </module>
 </app-component>

@@ -23,7 +23,7 @@ import ru.iovchinnikov.mailing.web.screens.message.MessageBrowse;
 import javax.inject.Inject;
 
 
-@UiController("topMenuMainScreen")
+@UiController("mailing_main")
 @UiDescriptor("ext-main-screen.xml")
 public class ExtMainScreen extends MainScreen {
     @Inject private SplitPanel foldersSplit;
